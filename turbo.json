@@ -1,0 +1,37 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "ui": "tui",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": [
+        "apps/frontend/.next/**",
+        "apps/temp-app/.next/**", 
+        "apps/backend/redisMaster/dist/**", 
+        "apps/backend/redisWorker/dist/**",
+        "!apps/frontend/.next/cache/**"
+      ]
+    },
+    "lint": {
+      "dependsOn": ["^lint"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": [
+        "@my-turbo/frontend#dev",
+        "temp-app#dev"
+      ]
+    },
+    "@my-turbo/frontend#dev": {
+      "dependsOn": [  ]  
+    },
+    "@my-turbo/redis-master#dev": {
+      "dependsOn": [] 
+    },
+    "@my-turbo/redis-worker#dev": {
+      "dependsOn": []
+    }
+  }
+}
