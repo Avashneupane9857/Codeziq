@@ -12,11 +12,11 @@ function Input() {
         <div className="">
           <button className="bg-[#316FF6] w-16 mt-2 text-white rounded-md">
             Share
-          </button>{" "}
+          </button>
         </div>
         <div className="pr-10 ">
           <button className="bg-[#316FF6] w-16  mt-2 text-white rounded-md ">
-            Run{" "}
+            Run
           </button>
         </div>
       </div>
