@@ -5,6 +5,22 @@ function Input() {
   const handleInputChange = (e) => {
     setInput(e.target.value);
   };
+  async function submit() {
+    console.log(input);
+
+    const datas = { problemId: 5, code: input || "", language: "python" };
+
+    const res = await fetch(`http://localhost:8080/submit`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(datas),
+    });
+
+    const data = await res.json();
+    console.log(data);
+  }
 
   return (
     <div className="bg-[#1C2130] w-[50%]  border-r-2 border-slate-500  ">
@@ -15,7 +31,10 @@ function Input() {
           </button>
         </div>
         <div className="pr-10 ">
-          <button className="bg-[#316FF6] w-16  mt-2 text-white rounded-md ">
+          <button
+            onClick={submit}
+            className="bg-[#316FF6] w-16  mt-2 text-white rounded-md "
+          >
             Run
           </button>
         </div>
