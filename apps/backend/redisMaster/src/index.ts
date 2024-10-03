@@ -1,9 +1,9 @@
 import express, { Request, Response } from "express";
 import { createClient } from "redis";
-
+import cors from "cors"
 const app = express();
 app.use(express.json());
-
+app.use(cors())
 const client = createClient();
 
 app.get("/", (req: Request, res: Response) => {
@@ -12,11 +12,15 @@ app.get("/", (req: Request, res: Response) => {
 
 app.post("/submit", async (req: Request, res: Response) => {
     try {
+        console.log(req.body);
         const { problemId, code, language } = req.body;
 
         await client.lPush("problems", JSON.stringify({ code, language, problemId }));
 
-        res.status(200).send("Submission received and stored for id: " + problemId);
+        console.log(problemId);
+
+        res.status(200).json({"id":problemId});
+
     } catch (error) {
         console.error("Redis error:", error);
         res.status(500).send("Failed to store submission.");
