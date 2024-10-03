@@ -5,9 +5,7 @@
     "dev": {
       "cache": false,
       "persistent": true,
-      "dependsOn": [
-       
-      ]
+      "dependsOn": []
     },
     "@my-turbo/frontend#dev": {
       "cache": false,
