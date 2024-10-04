@@ -14,15 +14,16 @@ async function processSubmission(submission: string) {
 
             await client.lPush(`results:${problemId}`, runOutput);
 
-           await client.publish("problem_done", JSON.stringify({ problemId, output: runOutput }));
+        //    await client.publish("problem_done", JSON.stringify({ problemId, output: runOutput }));
 
 
             console.log(`Python Output: ${runOutput}`);
         } catch (error) {
             console.error(`Error running Python code: ${error}`);
+
             await client.lPush(`results:${problemId}`, `Error: ${error}`);
 
-           await client.publish("problem_done", JSON.stringify({ problemId, error: (error as Error).message }));
+        //    await client.publish("problem_done", JSON.stringify({ problemId, error: (error as Error).message }));
 
 
         }
@@ -55,7 +56,6 @@ async function processSubmission(submission: string) {
     }
 
 
-    console.log(`Finished processing submission for problemId ${problemId}.`);
 }
 
 async function startWorker() {
@@ -65,7 +65,6 @@ async function startWorker() {
         while (true) {
             try {
                 const submission = await client.brPop("problems", 0);
-                console.log("Received submission:", submission);
 
                 if (submission) {
               await processSubmission(submission.element);
